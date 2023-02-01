@@ -62,9 +62,9 @@ workflows:
       - request-ipa-and-prepare-release:
           type: approval
           filters:
-            <<: *filters-node      
+            branches:
+              only:
+                - main
       - ios-release:
           requires:
             - request-ipa-and-prepare-release
-          filters:
-            <<: *filters-node    
