@@ -27,11 +27,44 @@ jobs:
       - store_artifacts:
           path: test_output
           destination: scan-output
+  
+  ios-release:
+    macos:
+      xcode: '14.0.1'
+    working_directory: ~/your-working-directory
+
+    # use a --login shell so our "set Ruby version" command gets picked up for later steps
+    shell: /bin/bash --login -o pipefail
+
+    steps:
+      - checkout
+
+      - run:
+          name: "Create .env file"
+          command: echo -e "APP_STORE_CONNECT_API_KEY_ISSUER_ID=${APP_STORE_CONNECT_API_KEY_ISSUER_ID}\nAPP_STORE_CONNECT_API_KEY_KEY=${APP_STORE_CONNECT_API_KEY_KEY}\nAPP_STORE_CONNECT_API_KEY_KEY_ID=${APP_STORE_CONNECT_API_KEY_KEY_ID}" > .env
+
+      - run:
+          command: bundle exec fastlane release_ipa --verbose
+          no_output_timeout: 30m
+          working_directory: ios
+
+      - store_artifacts:
+          path: ios/your_project.ipa
+
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  lint-build: # This is the name of the workflow, feel free to change it to better match your workflow.
+  deploy-build: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - build
+      - request-ipa-and-prepare-release:
+          type: approval
+          filters:
+            <<: *filters-node      
+      - ios-release:
+          requires:
+            - request-ipa-and-prepare-release
+          filters:
+            <<: *filters-node    
