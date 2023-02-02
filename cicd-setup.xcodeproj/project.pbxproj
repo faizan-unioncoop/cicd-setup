@@ -440,7 +440,7 @@
 				CODE_SIGN_ENTITLEMENTS = "cicd-setup/cicd-setup.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = 36S4JW7YPJ;
+				DEVELOPMENT_TEAM = FLY8DC9K57;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "cicd-setup/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -453,7 +453,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ae.uc.cicd-setup";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ae.uc.cicd-setup123";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -469,7 +469,7 @@
 				CODE_SIGN_ENTITLEMENTS = "cicd-setup/cicd-setup.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = 36S4JW7YPJ;
+				DEVELOPMENT_TEAM = FLY8DC9K57;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "cicd-setup/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -482,7 +482,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ae.uc.cicd-setup";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ae.uc.cicd-setup123";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

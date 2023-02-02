@@ -1,6 +1,6 @@
-APP_ID = "com.bla.bla"
-PROVISIONING_PROFILE_APPSTORE = "match AppStore com.bla.bla"
-TEAM_ID = "your_team_id"
+APP_ID = "com.ae.uc.cicd-setup123"
+PROVISIONING_PROFILE_APPSTORE = "match AppStore com.ae.uc.cicd-setup123"
+TEAM_ID = "FLY8DC9K57"
 
 settings_to_override_release = { 
   :BUNDLE_IDENTIFIER => APP_ID, 
@@ -47,7 +47,7 @@ platform :ios do
         provisioningProfiles: { 
           APP_ID => PROVISIONING_PROFILE_APPSTORE
         },
-        installerSigningCertificate: "your_installer_signing_certificate_name"
+        installerSigningCertificate: "99 Logo Studio Limited"
       }
     )
     deliver(

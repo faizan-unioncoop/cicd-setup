@@ -30,8 +30,7 @@ jobs:
   
   ios-release:
     macos:
-      xcode: '14.0.1'
-    working_directory: ~/your-working-directory
+      xcode: 14.0.1
 
     # use a --login shell so our "set Ruby version" command gets picked up for later steps
     shell: /bin/bash --login -o pipefail
@@ -49,7 +48,7 @@ jobs:
           working_directory: ios
 
       - store_artifacts:
-          path: ios/your_project.ipa
+          path: ios/cicd-setup.ipa
 
 
 # Invoke jobs via workflows
@@ -61,10 +60,6 @@ workflows:
       - build
       - request-ipa-and-prepare-release:
           type: approval
-          filters:
-            branches:
-              only:
-                - main
       - ios-release:
           requires:
             - request-ipa-and-prepare-release
