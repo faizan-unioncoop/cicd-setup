@@ -43,7 +43,7 @@ jobs:
           command: echo -e "APP_STORE_CONNECT_API_KEY_ISSUER_ID=${APP_STORE_CONNECT_API_KEY_ISSUER_ID}\nAPP_STORE_CONNECT_API_KEY_KEY=${APP_STORE_CONNECT_API_KEY_KEY}\nAPP_STORE_CONNECT_API_KEY_KEY_ID=${APP_STORE_CONNECT_API_KEY_KEY_ID}" > .env
 
       - run:
-          command: bundle exec fastlane release_ipa --verbose
+          command: rm -rf Pods && pod install && bundle exec fastlane release_ipa --verbose
           no_output_timeout: 30m
           working_directory: ios
 
