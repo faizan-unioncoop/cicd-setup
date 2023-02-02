@@ -19,9 +19,14 @@ platform :ios do
   desc "Export Release IPA & upload Release to App Store"
   lane :release_ipa do
     api_key = app_store_connect_api_key( 
-      key_id: $APP_STORE_CONNECT_API_KEY_KEY_ID, 
-      issuer_id: $APP_STORE_CONNECT_API_KEY_ISSUER_ID, 
-      key_content: $APP_STORE_CONNECT_API_KEY_KEY 
+      key_id: "89F48SFKF7", 
+      issuer_id: "3a2bbaf9-2705-42e3-a4e0-32629c81702c", 
+      key_content: "-----BEGIN PRIVATE KEY-----
+      MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgpnMi+TQP8Q4CjIC/
+      wdhDgY7enT0fYcuJ6JsiDW8em6WgCgYIKoZIzj0DAQehRANCAARN1Iwr1hXDC/pG
+      FO8yv5J1u0erEhG1IC+Aj331R/LG6Ofr2KVdHbXpCbqP4SVyWZrsF+sTRoV9L/C4
+      OC97KYiE
+      -----END PRIVATE KEY-----"
     )
     increment_build_number(
       build_number: app_store_build_number(
