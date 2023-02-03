@@ -83,4 +83,13 @@ platform :ios do
       release_notes: "This is a test release!"
     )
   end
+
+  lane :get_dev_certs do
+    cert(
+          development: true
+        )
+    sigh(
+          development: true
+        )
+  end
 end
