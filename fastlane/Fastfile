@@ -1,12 +1,12 @@
-APP_ID = "com.ae.uc.cicd-setup123"
-PROVISIONING_PROFILE_APPSTORE = "match AppStore com.ae.uc.cicd-setup123"
-TEAM_ID = "FLY8DC9K57"
+# APP_ID = "com.ae.uc.cicd-setup123"
+# PROVISIONING_PROFILE_APPSTORE = "match AppStore com.ae.uc.cicd-setup123"
+# TEAM_ID = "FLY8DC9K57"
 
-settings_to_override_release = { 
-  :BUNDLE_IDENTIFIER => APP_ID, 
-  :PROVISIONING_PROFILE_SPECIFIER => PROVISIONING_PROFILE_APPSTORE, 
-  :DEVELOPMENT_TEAM => TEAM_ID, 
-}
+# settings_to_override_release = { 
+#   :BUNDLE_IDENTIFIER => APP_ID, 
+#   :PROVISIONING_PROFILE_SPECIFIER => PROVISIONING_PROFILE_APPSTORE, 
+#   :DEVELOPMENT_TEAM => TEAM_ID, 
+# }
 
 # default_platform(:ios)
 
