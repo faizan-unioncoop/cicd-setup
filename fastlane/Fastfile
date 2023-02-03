@@ -1,61 +1,83 @@
-APP_ID = "com.ae.uc.cicd-setup123"
-PROVISIONING_PROFILE_APPSTORE = "match AppStore com.ae.uc.cicd-setup123"
-TEAM_ID = "FLY8DC9K57"
+# APP_ID = "com.ae.uc.cicd-setup123"
+# PROVISIONING_PROFILE_APPSTORE = "match AppStore com.ae.uc.cicd-setup123"
+# TEAM_ID = "FLY8DC9K57"
 
-settings_to_override_release = { 
-  :BUNDLE_IDENTIFIER => APP_ID, 
-  :PROVISIONING_PROFILE_SPECIFIER => PROVISIONING_PROFILE_APPSTORE, 
-  :DEVELOPMENT_TEAM => TEAM_ID, 
-}
+# settings_to_override_release = { 
+#   :BUNDLE_IDENTIFIER => APP_ID, 
+#   :PROVISIONING_PROFILE_SPECIFIER => PROVISIONING_PROFILE_APPSTORE, 
+#   :DEVELOPMENT_TEAM => TEAM_ID, 
+# }
 
-default_platform(:ios)
+# default_platform(:ios)
+
+# platform :ios do
+
+#   before_all do
+#     setup_circle_ci
+#   end
+
+#   desc "Export Release IPA & upload Release to App Store"
+#   lane :release_ipa do
+#     api_key = app_store_connect_api_key( 
+#       key_id: $APP_STORE_CONNECT_API_KEY_KEY_ID, 
+#       issuer_id: $APP_STORE_CONNECT_API_KEY_ISSUER_ID, 
+#       key_content: $APP_STORE_CONNECT_API_KEY_KEY
+#       is_key_content_base64: true
+#     )
+#     increment_build_number(
+#       build_number: app_store_build_number(
+#         api_key: api_key,
+#         initial_build_number: 0,
+#         version: get_version_number(xcodeproj: "cicd-setup.xcodeproj"),
+#         live: false
+#       ) + 1,
+#     )
+#     match(
+#       app_identifier: APP_ID,
+#       readonly: false,
+#       type:"appstore"
+#     )
+#    build_app(
+#       scheme:"cicd-setup", 
+#       export_method:"app-store",
+#       skip_profile_detection:true,
+#       configuration: "Release",
+#       workspace: "cicd-setup.xcworkspace",
+#       xcargs: settings_to_override_release,
+#       export_options: {
+#         provisioningProfiles: { 
+#           APP_ID => PROVISIONING_PROFILE_APPSTORE
+#         },
+#         installerSigningCertificate: "99 Logo Studio Limited"
+#       }
+#     )
+#     deliver(
+#       api_key: api_key,
+#       submit_for_review: false,
+#       force: true,
+#       precheck_include_in_app_purchases: false
+#     )
+#   end
+# end
+
+
+default_platform :ios
 
 platform :ios do
-
   before_all do
     setup_circle_ci
   end
 
-  desc "Export Release IPA & upload Release to App Store"
-  lane :release_ipa do
-    api_key = app_store_connect_api_key( 
-      key_id: $APP_STORE_CONNECT_API_KEY_KEY_ID, 
-      issuer_id: $APP_STORE_CONNECT_API_KEY_ISSUER_ID, 
-      key_content: $APP_STORE_CONNECT_API_KEY_KEY
-      is_key_content_base64: true
-    )
+  desc "Upload to Firebase"
+  lane :upload_firebase do
     increment_build_number(
-      build_number: app_store_build_number(
-        api_key: api_key,
-        initial_build_number: 0,
-        version: get_version_number(xcodeproj: "cicd-setup.xcodeproj"),
-        live: false
-      ) + 1,
+      build_number: "$CIRCLE_BUILD_NUM"
     )
-    match(
-      app_identifier: APP_ID,
-      readonly: false,
-      type:"appstore"
-    )
-   build_app(
-      scheme:"cicd-setup", 
-      export_method:"app-store",
-      skip_profile_detection:true,
-      configuration: "Release",
-      workspace: "cicd-setup.xcworkspace",
-      xcargs: settings_to_override_release,
-      export_options: {
-        provisioningProfiles: { 
-          APP_ID => PROVISIONING_PROFILE_APPSTORE
-        },
-        installerSigningCertificate: "99 Logo Studio Limited"
-      }
-    )
-    deliver(
-      api_key: api_key,
-      submit_for_review: false,
-      force: true,
-      precheck_include_in_app_purchases: false
+    match(type: "adhoc")
+    gym(scheme: "HelloWorld")
+    firebase_app_distribution(
+      app: "1:1029978588996:ios:c1bb15ae733377be077911",
+      release_notes: "This is a test release!"
     )
   end
 end

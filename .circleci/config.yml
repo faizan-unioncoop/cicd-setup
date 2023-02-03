@@ -28,24 +28,36 @@ jobs:
           path: test_output
           destination: scan-output
   
-  ios-release:
+  # ios-release:
+  #   macos:
+  #     xcode: 14.0.1
+
+  #   # use a --login shell so our "set Ruby version" command gets picked up for later steps
+  #   shell: /bin/bash --login -o pipefail
+
+  #   steps:
+  #     - checkout
+
+  #     - run:
+  #         name: "Create .env file"
+  #         command: echo -e "APP_STORE_CONNECT_API_KEY_ISSUER_ID=${APP_STORE_CONNECT_API_KEY_ISSUER_ID}\nAPP_STORE_CONNECT_API_KEY_KEY=${APP_STORE_CONNECT_API_KEY_KEY}\nAPP_STORE_CONNECT_API_KEY_KEY_ID=${APP_STORE_CONNECT_API_KEY_KEY_ID}" > .env
+  #     - run: bundle install
+  #     - run: bundle exec fastlane release_ipa
+
+  #     - store_artifacts:
+  #         path: ios/cicd-setup.ipa
+
+  adhoc:
     macos:
-      xcode: 14.0.1
-
-    # use a --login shell so our "set Ruby version" command gets picked up for later steps
-    shell: /bin/bash --login -o pipefail
-
+      xcode: "14.0.1"
+    environment:
+      FL_OUTPUT_DIR: output
     steps:
       - checkout
-
-      - run:
-          name: "Create .env file"
-          command: echo -e "APP_STORE_CONNECT_API_KEY_ISSUER_ID=${APP_STORE_CONNECT_API_KEY_ISSUER_ID}\nAPP_STORE_CONNECT_API_KEY_KEY=${APP_STORE_CONNECT_API_KEY_KEY}\nAPP_STORE_CONNECT_API_KEY_KEY_ID=${APP_STORE_CONNECT_API_KEY_KEY_ID}" > .env
+      - run: echo 'chruby ruby-2.6' >> ~/.bash_profile
       - run: bundle install
-      - run: bundle exec fastlane release_ipa
-
-      - store_artifacts:
-          path: ios/cicd-setup.ipa
+      - run: curl -sL https://firebase.tools | bash
+      - run: bundle exec fastlane upload_firebase
 
 
 # Invoke jobs via workflows
@@ -55,8 +67,5 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       #- build
-      - request-ipa-and-prepare-release:
-          type: approval
-      - ios-release:
-          requires:
-            - request-ipa-and-prepare-release
+      #- ios-release:
+      adhoc
