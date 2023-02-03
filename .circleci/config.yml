@@ -49,11 +49,14 @@ jobs:
 
   adhoc:
     macos:
-      xcode: "14.0.1"
+      xcode: 14.0.1
     environment:
       FL_OUTPUT_DIR: output
     steps:
       - checkout
+      - run:
+        name: "Create .env file"
+        command: echo -e "APP_STORE_CONNECT_API_KEY_ISSUER_ID=${APP_STORE_CONNECT_API_KEY_ISSUER_ID}\nAPP_STORE_CONNECT_API_KEY_KEY=${APP_STORE_CONNECT_API_KEY_KEY}\nAPP_STORE_CONNECT_API_KEY_KEY_ID=${APP_STORE_CONNECT_API_KEY_KEY_ID}" > .env
       - run: bundle install
       - run: curl -sL https://firebase.tools | bash
       - run: bundle exec fastlane upload_firebase
