@@ -8,10 +8,16 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    @IBOutlet weak var customBarItem: UIButton!
+    @IBOutlet weak var customBarItemView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.view.backgroundColor = .systemPink
+        
+        print("ButtonView frame: \(customBarItemView.frame)")
+        print("Button frame: \(customBarItem.frame)")
     }
 }
