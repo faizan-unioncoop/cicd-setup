@@ -16,6 +16,9 @@ jobs:
 
       - name: Install pods
         run: pod install
+      
+      - name: Install Firebase
+        run: curl -sL https://firebase.tools | bash
 
       - name: Deploy iOS Beta to TestFlight via Fastlane
         uses: maierj/fastlane-action@v1.4.0
