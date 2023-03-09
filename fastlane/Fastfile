@@ -48,27 +48,6 @@ platform :ios do
       api_key: api_key
     )
 
-    # gym(
-    #   configuration: "Release",
-    #   workspace: "cicd-setup.xcworkspace",
-    #   scheme: "cicd-setup",
-    #   export_method: "app-store",
-    #   export_options: {
-    #     provisioningProfiles: { 
-    #       DEVELOPER_APP_IDENTIFIER => PROVISIONING_PROFILE_SPECIFIER
-    #     }
-    #   }
-    # )
-
-    # pilot(
-    #   apple_id: "#{DEVELOPER_APP_ID}",
-    #   app_identifier: "#{DEVELOPER_APP_IDENTIFIER}",
-    #   skip_waiting_for_build_processing: true,
-    #   skip_submission: true,
-    #   distribute_external: false,
-    #   notify_external_testers: false,
-    #   ipa: "./cicd-setup.ipa"
-    # )
 
     build_app(
       scheme:"cicd-setup", 
@@ -83,6 +62,11 @@ platform :ios do
         },
         installerSigningCertificate: "Apple Distribution"
       }
+    )
+
+    #deliver app to Firebase Distribution 
+    firebase_app_distribution(
+      release_notes: "Lots of amazing new features to test out!"
     )
 
     #deliver app to Appstore Connect or Testflight
