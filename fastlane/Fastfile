@@ -1,12 +1,16 @@
 
-APP_ID = ENV["DEVELOPER_APP_IDENTIFIER"]
-PROVISIONING_PROFILE_APPSTORE = ENV["PROVISIONING_PROFILE_SPECIFIER"]
-TEAM_ID = ENV["DEVELOPER_PORTAL_TEAM_ID"]
+DEVELOPER_PORTAL_TEAM_ID = ENV["DEVELOPER_PORTAL_TEAM_ID"]
+DEVELOPER_APP_IDENTIFIER = ENV["DEVELOPER_APP_IDENTIFIER"]
+PROVISIONING_PROFILE_SPECIFIER = ENV["PROVISIONING_PROFILE_SPECIFIER"]
+APPLE_ISSUER_ID = ENV["APPLE_ISSUER_ID"]
+APPLE_KEY_ID = ENV["APPLE_KEY_ID"]
+APPLE_KEY_CONTENT = ENV["APPLE_KEY_CONTENT"]
+GIT_AUTHORIZATION = ENV["GIT_AUTHORIZATION"]
 
 settings_to_override_release = { 
-  :BUNDLE_IDENTIFIER => APP_ID, 
-  :PROVISIONING_PROFILE_SPECIFIER => PROVISIONING_PROFILE_APPSTORE, 
-  :DEVELOPMENT_TEAM => TEAM_ID, 
+  :BUNDLE_IDENTIFIER => DEVELOPER_APP_IDENTIFIER, 
+  :PROVISIONING_PROFILE_SPECIFIER => PROVISIONING_PROFILE_SPECIFIER, 
+  :DEVELOPMENT_TEAM => DEVELOPER_PORTAL_TEAM_ID, 
 }
 
 default_platform(:ios)
@@ -37,11 +41,13 @@ platform :ios do
     )
 
     match(
-      app_identifier: APP_ID,
-      git_basic_authorization: Base64.strict_encode64(ENV["GIT_AUTHORIZATION"])
-      readonly: false,
-      type:"appstore"
+      type: 'appstore',
+      app_identifier: "#{DEVELOPER_APP_IDENTIFIER}",
+      git_basic_authorization: Base64.strict_encode64(GIT_AUTHORIZATION),
+      readonly: true,
+      api_key: api_key
     )
+
 
     build_app(
       scheme:"cicd-setup", 
@@ -52,7 +58,7 @@ platform :ios do
       xcargs: settings_to_override_release,
       export_options: {
         provisioningProfiles: { 
-          APP_ID => PROVISIONING_PROFILE_APPSTORE
+          DEVELOPER_APP_IDENTIFIER => PROVISIONING_PROFILE_SPECIFIER
         },
         installerSigningCertificate: "Apple Distribution"
       }
