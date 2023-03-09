@@ -48,52 +48,52 @@ platform :ios do
       api_key: api_key
     )
 
-    gym(
-      configuration: "Release",
-      workspace: "cicd-setup.xcworkspace",
-      scheme: "cicd-setup",
-      export_method: "app-store",
-      export_options: {
-        provisioningProfiles: { 
-          DEVELOPER_APP_IDENTIFIER => PROVISIONING_PROFILE_SPECIFIER
-        }
-      }
-    )
-
-    pilot(
-      apple_id: "#{DEVELOPER_APP_ID}",
-      app_identifier: "#{DEVELOPER_APP_IDENTIFIER}",
-      skip_waiting_for_build_processing: true,
-      skip_submission: true,
-      distribute_external: false,
-      notify_external_testers: false,
-      ipa: "./cicd-setup.ipa"
-    )
-
-    # build_app(
-    #   scheme:"cicd-setup", 
-    #   export_method:"app-store",
-    #   skip_profile_detection:true,
+    # gym(
     #   configuration: "Release",
     #   workspace: "cicd-setup.xcworkspace",
-    #   xcargs: settings_to_override_release,
+    #   scheme: "cicd-setup",
+    #   export_method: "app-store",
     #   export_options: {
     #     provisioningProfiles: { 
     #       DEVELOPER_APP_IDENTIFIER => PROVISIONING_PROFILE_SPECIFIER
-    #     },
-    #     installerSigningCertificate: "Apple Distribution"
+    #     }
     #   }
     # )
 
-    # #deliver app to Appstore Connect or Testflight
-    # deliver(
-    #   api_key: api_key,
-    #   submit_for_review: false,
-    #   force: true,
-    #   precheck_include_in_app_purchases: false,
-    #   skip_screenshots: true,
-    #   skip_metadata: true,
-    #   skip_app_version_update: true,
+    # pilot(
+    #   apple_id: "#{DEVELOPER_APP_ID}",
+    #   app_identifier: "#{DEVELOPER_APP_IDENTIFIER}",
+    #   skip_waiting_for_build_processing: true,
+    #   skip_submission: true,
+    #   distribute_external: false,
+    #   notify_external_testers: false,
+    #   ipa: "./cicd-setup.ipa"
     # )
+
+    build_app(
+      scheme:"cicd-setup", 
+      export_method:"app-store",
+      skip_profile_detection:true,
+      configuration: "Release",
+      workspace: "cicd-setup.xcworkspace",
+      xcargs: settings_to_override_release,
+      export_options: {
+        provisioningProfiles: { 
+          DEVELOPER_APP_IDENTIFIER => PROVISIONING_PROFILE_SPECIFIER
+        },
+        installerSigningCertificate: "Apple Distribution"
+      }
+    )
+
+    #deliver app to Appstore Connect or Testflight
+    deliver(
+      api_key: api_key,
+      submit_for_review: false,
+      force: true,
+      precheck_include_in_app_purchases: false,
+      skip_screenshots: true,
+      skip_metadata: true,
+      skip_app_version_update: true,
+    )
   end
 end
