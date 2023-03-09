@@ -8,8 +8,11 @@ jobs:
   build-upload:
     runs-on: macos-latest
     steps:
+    - uses: actions/checkout@v2
+    - name: pod install
+      run:  pod install
     - name: iOS app
-      run: xcodebuild -scheme "cicd-setup" clean archive -archivePath "Actions" -configuration "Release Production"
+      run:  xcodebuild -scheme "cicd-setup" clean archive -archivePath "Actions" -configuration "Release Production"
     - name: export ipa
       env: 
         EXPORT_PLIST: ${{ secrets.IOS_EXPORT_PRODUCTION }}
