@@ -12,7 +12,7 @@ jobs:
     - name: pod install
       run:  pod install
     - name: Build and test 
-      run: xcodebuild clean build test -project cicd-setup.xcworkspace -scheme "cicd-setup" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+      run: xcodebuild clean build test -project cicd-setup.xcworkspace -scheme "cicd-setup" CODE_SIGNING_REQUIRED=NO
     # - name: iOS app
     #   run:  xcodebuild -scheme "cicd-setup" clean archive -archivePath "Actions" -configuration "Release Production"
     # - name: export ipa
