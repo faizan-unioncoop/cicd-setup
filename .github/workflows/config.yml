@@ -20,7 +20,8 @@ jobs:
         with:
           xcode-version: latest-stable
 
-      - uses: ruby/setup-ruby@v1
+      - name: Install Ruby version from .ruby-version
+        uses: eregon/use-ruby-action@master
 
       - name: Install Bundler
         run: gem install bundler
