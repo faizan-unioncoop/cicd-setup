@@ -1,0 +1,72 @@
+
+APP_ID = ENV["DEVELOPER_APP_IDENTIFIER"]
+PROVISIONING_PROFILE_APPSTORE = ENV["PROVISIONING_PROFILE_SPECIFIER"]
+TEAM_ID = ENV["DEVELOPER_PORTAL_TEAM_ID"]
+
+settings_to_override_release = { 
+  :BUNDLE_IDENTIFIER => APP_ID, 
+  :PROVISIONING_PROFILE_SPECIFIER => PROVISIONING_PROFILE_APPSTORE, 
+  :DEVELOPMENT_TEAM => TEAM_ID, 
+}
+
+default_platform(:ios)
+
+platform :ios do
+
+  before_all do
+    setup_circle_ci
+  end
+
+  desc "Export Release IPA & upload Release to App Store"
+  lane :release_app do
+
+    api_key = app_store_connect_api_key( 
+      key_id: APPLE_KEY_ID,
+      issuer_id: APPLE_ISSUER_ID,
+      key_content: APPLE_KEY_CONTENT,
+      is_key_content_base64: true
+    )
+
+    increment_build_number(
+      build_number: app_store_build_number(
+        api_key: api_key,
+        initial_build_number: 0,
+        version: get_version_number(xcodeproj: "cicd-setup.xcodeproj"),
+        live: false
+      ) + 1,
+    )
+
+    match(
+      app_identifier: APP_ID,
+      git_basic_authorization: Base64.strict_encode64(ENV["GIT_AUTHORIZATION"])
+      readonly: false,
+      type:"appstore"
+    )
+
+    build_app(
+      scheme:"cicd-setup", 
+      export_method:"app-store",
+      skip_profile_detection:true,
+      configuration: "Release",
+      workspace: "cicd-setup.xcworkspace",
+      xcargs: settings_to_override_release,
+      export_options: {
+        provisioningProfiles: { 
+          APP_ID => PROVISIONING_PROFILE_APPSTORE
+        },
+        installerSigningCertificate: "Apple Distribution"
+      }
+    )
+
+    #deliver app to Appstore Connect or Testflight
+    deliver(
+      api_key: api_key,
+      submit_for_review: false,
+      force: true,
+      precheck_include_in_app_purchases: false,
+      skip_screenshots: true,
+      skip_metadata: true,
+      skip_app_version_update: true,
+    )
+  end
+end

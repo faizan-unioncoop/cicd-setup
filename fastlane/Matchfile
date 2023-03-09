@@ -1,0 +1,7 @@
+git_url("https://github.com/faizannaseem96/cicd-certificates.git")
+
+storage_mode("git")
+git_basic_authorization(ENV["GIT_AUTHORIZATION"])
+
+type("appstore")
+force_for_new_devices(true)
