@@ -1,4 +1,4 @@
-git_url("https://github.com/faizannaseem96/cicd-certificates.git")
+git_url("https://github.com/faizan-unioncoop/cicd-setup-certificates.git")
 
 storage_mode("git")
 git_basic_authorization(ENV["GIT_AUTHORIZATION"])
