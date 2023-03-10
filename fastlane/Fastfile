@@ -25,7 +25,10 @@ platform :ios do
 
   desc "Run unit tests"
   lane :tests do
-    scan(scheme: "cicd-setup")
+    scan(
+      workspace: "cicd-setup.xcworkspace",
+      devices: ["iPhone 8"]
+    )
   end
 
   desc "Export Release IPA & upload Release to App Store"
