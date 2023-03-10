@@ -15,37 +15,13 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## iOS
 
-### ios custom_lane
+### ios tests
 
 ```sh
-[bundle exec] fastlane ios custom_lane
+[bundle exec] fastlane ios tests
 ```
 
-Description of what the lane does
-
-### ios export_app
-
-```sh
-[bundle exec] fastlane ios export_app
-```
-
-To export our app
-
-### ios upload_app
-
-```sh
-[bundle exec] fastlane ios upload_app
-```
-
-To deliver our app to Testflight
-
-### ios upload_firebase_app
-
-```sh
-[bundle exec] fastlane ios upload_firebase_app
-```
-
-To deliver our app to Firebase
+Run unit tests
 
 ### ios release_app
 
@@ -53,7 +29,7 @@ To deliver our app to Firebase
 [bundle exec] fastlane ios release_app
 ```
 
-To release our app
+Export Release IPA & upload Release to App Store
 
 ----
 
