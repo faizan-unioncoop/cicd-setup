@@ -3,12 +3,3 @@ apple_id(ENV["FASTLANE_APPLE_ID"]) # Your Apple Developer Portal username
 
 itc_team_id(ENV["APP_STORE_CONNECT_TEAM_ID"])
 team_id(ENV["DEVELOPER_PORTAL_TEAM_ID"])
-
-# For more information about the Appfile, see:
-#     https://docs.fastlane.tools/advanced/#appfile
-
-# ENV["FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD"] = "pili-oxtb-zduj-ndwq"
-# ENV["FASTLANE_ITC_TEAM_NAME"] = "99 Logo Studio Limited"
-# ENV["FIREBASE_TOKEN"] = "1//03lBm9aSqMLQbCgYIARAAGAMSNwF-L9IreYXBTtXq4G3OO1St_TZETZlhnVf4nqEVl6EqIjN1ZsQMMVZPlOFsxfUBy8323sub9RE"
-# ENV["MATCH_PASSWORD"] = "1234"
-# ENV['MATCH_GIT_BASIC_AUTHORIZATION'] = "ZmFpemFubmFzZWVtOTY6Z2hwX1ZjWUd5d3NUSEpQZWh1d28wN2xteGhORXZCRjZwNTBZQk5oSg=="

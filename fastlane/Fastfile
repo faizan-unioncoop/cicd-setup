@@ -6,6 +6,8 @@ APPLE_ISSUER_ID = ENV["APPLE_ISSUER_ID"]
 APPLE_KEY_ID = ENV["APPLE_KEY_ID"]
 APPLE_KEY_CONTENT = ENV["APPLE_KEY_CONTENT"]
 GIT_AUTHORIZATION = ENV["GIT_AUTHORIZATION"]
+FIREBASE_APP_ID = ENV["FIREBASE_APP_ID"]
+FIREBASE_CLI_TOKEN = ENV["FIREBASE_CLI_TOKEN"]
 
 settings_to_override_release = { 
   :BUNDLE_IDENTIFIER => DEVELOPER_APP_IDENTIFIER, 
@@ -66,6 +68,8 @@ platform :ios do
 
     #deliver app to Firebase Distribution 
     firebase_app_distribution(
+      app: FIREBASE_APP_ID,
+      firebase_cli_token: FIREBASE_CLI_TOKEN,
       release_notes: "Lots of amazing new features to test out!"
     )
 
