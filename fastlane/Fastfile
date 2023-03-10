@@ -23,9 +23,15 @@ platform :ios do
     setup_circle_ci
   end
 
+  desc "Run unit tests"
+  lane :tests do
+    scan(scheme: "cicd-setup.xcworkspace")
+  end
+
   desc "Export Release IPA & upload Release to App Store"
   lane :release_app do
 
+    ##Load the App Store Connect API token to use in other fastlane tools and actions
     api_key = app_store_connect_api_key( 
       key_id: APPLE_KEY_ID,
       issuer_id: APPLE_ISSUER_ID,
@@ -33,6 +39,7 @@ platform :ios do
       is_key_content_base64: true
     )
 
+    ##Increment build number before uploading
     increment_build_number(
       build_number: app_store_build_number(
         api_key: api_key,
@@ -42,6 +49,7 @@ platform :ios do
       ) + 1,
     )
 
+    ##sync your certificates and profiles across your team 
     match(
       type: 'appstore',
       app_identifier: "#{DEVELOPER_APP_IDENTIFIER}",
@@ -50,7 +58,7 @@ platform :ios do
       api_key: api_key
     )
 
-
+    ##archive application 
     build_app(
       scheme:"cicd-setup", 
       export_method:"app-store",
